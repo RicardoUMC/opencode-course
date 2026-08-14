@@ -1,0 +1,8 @@
+{
+  "id": "task-1",
+  "title": "Prepare sprint demo",
+  "description": "Collect the notes for the team demo",
+  "assignee": "Ana",
+  "status": "todo",
+  "dueDate": "2026-08-20"
+}

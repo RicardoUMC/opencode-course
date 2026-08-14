@@ -1,0 +1,19 @@
+{
+  "resource": "Task",
+  "basePath": "/tasks",
+  "fields": {
+    "id": "string",
+    "title": "string",
+    "description": "string",
+    "assignee": "string",
+    "status": "todo | in_progress | done",
+    "dueDate": "YYYY-MM-DD"
+  },
+  "endpoints": [
+    { "method": "GET", "path": "/tasks", "response": "Task[]" },
+    { "method": "POST", "path": "/tasks", "body": "CreateTaskRequest", "response": "Task" },
+    { "method": "PATCH", "path": "/tasks/{id}/status", "body": "ChangeStatusRequest", "response": "Task" },
+    { "method": "GET", "path": "/tasks/summary", "response": "TaskSummary" },
+    { "method": "GET", "path": "/tasks/overdue", "response": "Task[]" }
+  ]
+}
