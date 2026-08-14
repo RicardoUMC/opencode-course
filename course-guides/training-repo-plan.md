@@ -56,6 +56,22 @@ La aplicación permite:
 
 Este dominio es útil porque es fácil de entender, pero permite introducir errores lógicos, validaciones faltantes, estados inconsistentes y problemas simples de integración frontend/backend.
 
+## Estado verificado actual
+
+El proyecto práctico ya corre localmente.
+
+| Área | Estado |
+|------|--------|
+| Backend | `cd apps/api && go run ./cmd/server`, disponible en `http://localhost:8080`. |
+| Backend tests | `go test ./...` pasa, aunque todavía no existen archivos de prueba. |
+| Frontend | `cd apps/web && npm install && npm start -- --host 127.0.0.1 --port 4200`, disponible en `http://127.0.0.1:4200`. |
+| Frontend build | `npm run build` pasa. |
+| Integración local | CORS/preflight está configurado para llamadas desde Angular al backend Go. |
+| Angular runtime | `zone.js` y `<base href="/">` ya están configurados. |
+| Estilos | Usa CSS simple del proyecto; Tailwind se dejó fuera a propósito para reducir setup. |
+
+Nota para instructores: se mantiene un problema educativo de contrato. El frontend/contrato compartido usa `PATCH /tasks/{id}/status`, pero el backend expone `PATCH /tasks/status?id=...`. La acción de marcar una tarea como completada debe fallar o abrir una conversación sobre deriva de contrato frontend/backend.
+
 ## Backend Go
 
 Ubicación:
@@ -295,6 +311,19 @@ Aprendizaje esperado:
 - encontrar problemas de contrato frontend/backend;
 - pedir al agente rastrear el flujo completo.
 
+#### 3b. Ruta de cambio de estado incompatible
+
+Estado actual:
+
+- frontend/contrato compartido: `PATCH /tasks/{id}/status`;
+- backend: `PATCH /tasks/status?id=...`.
+
+Aprendizaje esperado:
+
+- descubrir deriva de contrato sin resolverla por intuición;
+- pedir evidencia en frontend, contrato compartido y router Go;
+- corregir una sola fuente de verdad cuando el instructor lo indique.
+
 #### 4. Mensajes de error genéricos
 
 Ejemplo:
@@ -318,7 +347,7 @@ Ejemplos:
 - falta `.env.example`;
 - scripts de arranque están en `apps/web/package.json`, pero no en la raíz;
 - no hay comando único para levantar todo;
-- CORS puede requerir configuración explícita.
+- CORS/preflight ya está configurado para el desarrollo local actual.
 
 Estos problemas permiten el ejercicio:
 

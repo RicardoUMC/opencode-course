@@ -96,6 +96,59 @@ Mejora todo lo que veas.
 6. **Documentar**: capturar lo aprendido para futuros agentes y personas.
 7. **Comparar**: repetir con más contexto y observar si mejora la calidad del agente.
 
+## Estado local verificado
+
+El proyecto práctico ya puede levantarse localmente con backend y frontend.
+
+### Backend
+
+Desde la raíz del repositorio:
+
+```bash
+cd apps/api
+go run ./cmd/server
+```
+
+Resultado esperado:
+
+- API disponible en `http://localhost:8080`.
+
+Verificación disponible:
+
+```bash
+go test ./...
+```
+
+Nota: hoy pasa, pero todavía no hay archivos de prueba.
+
+### Frontend
+
+Desde la raíz del repositorio:
+
+```bash
+cd apps/web
+npm install
+npm start -- --host 127.0.0.1 --port 4200
+```
+
+Resultado esperado:
+
+- aplicación disponible en `http://127.0.0.1:4200`;
+- la pantalla carga y consume la API local;
+- crear y listar tareas funciona.
+
+Verificación disponible:
+
+```bash
+npm run build
+```
+
+### Qué observar
+
+- El frontend usa CSS simple del proyecto, no Tailwind.
+- Esto evita instalar herramientas extra durante el entrenamiento.
+- Si una acción de estado falla, trátala como ejercicio de diagnóstico de contrato frontend/backend.
+
 ## Notas de seguridad sobre MCPs y plugins
 
 - No conectes MCPs que den acceso a secretos, producción o datos sensibles durante ejercicios.

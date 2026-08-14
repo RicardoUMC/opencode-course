@@ -42,6 +42,8 @@ Antes del curso, cada participante debería tener:
 - Acceso al repositorio del curso.
 - Un editor de código, preferentemente VS Code o compatible.
 - Terminal funcional.
+- Go disponible para ejecutar el backend.
+- Node.js disponible para instalar y ejecutar el frontend.
 - OpenCode instalado o listo para instalar durante la sesión.
 - Acceso configurado al proveedor/modelo que usará OpenCode.
 
@@ -184,6 +186,17 @@ Usar OpenCode para trabajar como en un caso real: levantar el proyecto, detectar
 ## Temas
 
 ### 1. Levantar el proyecto por primera vez
+
+Estado verificado para el instructor:
+
+| Parte | Comando | Resultado esperado |
+|-------|---------|--------------------|
+| Backend | `cd apps/api && go run ./cmd/server` | API en `http://localhost:8080`. |
+| Backend tests | `cd apps/api && go test ./...` | Pasa; aún no hay archivos de prueba. |
+| Frontend | `cd apps/web && npm install && npm start -- --host 127.0.0.1 --port 4200` | App en `http://127.0.0.1:4200`. |
+| Frontend build | `cd apps/web && npm run build` | Build exitoso. |
+
+La UI usa CSS simple, no Tailwind. La decisión reduce dependencias y evita distraer la sesión con setup de estilos.
 
 Prompt sugerido:
 
@@ -440,11 +453,14 @@ Ejemplos de problemas intencionales:
 - endpoint Go que no valida un campo obligatorio;
 - cálculo incorrecto en un servicio;
 - error de manejo de estados en Angular;
+- contrato de cambio de estado desalineado entre frontend y backend;
 - mensaje de error genérico;
 - servicio Angular con responsabilidad mezclada;
 - comando de arranque no documentado;
 - falta de `.env.example`;
 - configuración local poco clara.
+
+Nota para instructores: el caso concreto de contrato es `PATCH /tasks/{id}/status` en frontend/contrato compartido contra `PATCH /tasks/status?id=...` en backend. No conviene anticiparlo a participantes antes del ejercicio de diagnóstico.
 
 ## Rama con contexto
 
