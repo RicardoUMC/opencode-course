@@ -13,7 +13,7 @@ import { RouterOutlet } from '@angular/router';
         <p>Track ownership, status, and due dates for a small delivery team.</p>
       </section>
 
-      <router-outlet />
+      <router-outlet></router-outlet>
     </main>
   `,
   styles: [`
