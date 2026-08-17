@@ -52,6 +52,7 @@ Antes del curso, cada participante debería tener:
 ```txt
 opencode-course/
   course-guides/
+    instructor-guide.md
     opencode-course.md
     participant-guide.md
     training-repo-plan.md
@@ -75,7 +76,12 @@ docs/
   testing.md
 ```
 
-La carpeta `course-guides/` contiene el material del curso.
+La carpeta `course-guides/` contiene el material del curso:
+
+- `opencode-course.md`: guía maestra del curso.
+- `instructor-guide.md`: guion práctico de facilitación para 3 sesiones o un workshop intensivo.
+- `participant-guide.md`: ejercicios y comandos para participantes.
+- `training-repo-plan.md`: plan técnico del repositorio de laboratorio.
 
 La carpeta `docs/` se reserva para documentación real del proyecto durante el ejercicio de comparación con contexto para agentes.
 
@@ -124,14 +130,17 @@ Reglas importantes:
 
 ### 4. Formas de uso
 
-Durante el curso se cubrirán dos formas principales:
+Durante el curso se cubrirán tres formas principales:
 
 - TUI.
 - VS Code o editores compatibles.
+- Web UI.
 
 La TUI es útil para trabajar con foco desde terminal.
 
-VS Code es útil para revisar archivos, navegar el proyecto y validar diffs de forma visual.
+VS Code o un IDE compatible es útil como entorno visual mientras OpenCode corre desde la terminal integrada. La integración/extensión de IDE puede mencionarse como apoyo, pero no es requisito para completar el curso.
+
+La Web UI es útil para una experiencia visual desde navegador y puede combinarse con la TUI cuando se usa `opencode attach`.
 
 ### 5. Instalación y primer comando
 
@@ -560,7 +569,7 @@ Incluye requisitos, comandos principales y problemas comunes.
 Al finalizar el curso, el equipo debería poder:
 
 - instalar y abrir OpenCode;
-- usar OpenCode desde TUI o VS Code;
+- usar OpenCode desde TUI, VS Code/IDE compatible o Web UI;
 - explorar un repositorio desconocido;
 - levantar un proyecto con ayuda del agente;
 - pedir planes antes de implementar;
