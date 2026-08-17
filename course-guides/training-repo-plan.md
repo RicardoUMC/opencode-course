@@ -6,6 +6,12 @@ Este documento define el proyecto práctico que se usará durante el curso de Op
 
 El repositorio debe funcionar como un monorepo realista con backend en Go y frontend en Angular. La intención no es construir una aplicación compleja, sino un sistema suficientemente familiar para que el equipo practique cómo usar OpenCode para entender, levantar, diagnosticar, corregir y documentar un proyecto.
 
+## Cómo usar este documento
+
+Este archivo es el plan técnico del laboratorio: estructura del repositorio, ramas, datos semilla, problemas intencionales y criterios de calidad del proyecto práctico.
+
+No es el guion de entrega en vivo ni la secuencia canónica de la clase. Para facilitar el curso, usa `course-guides/instructor-guide.md`. Los ejercicios de este documento son notas de diseño técnico del laboratorio y pueden agruparse o reordenarse en la facilitación.
+
 ## Principio del ejercicio
 
 La experiencia debe sentirse como llegar a un proyecto existente sin contexto.
@@ -17,6 +23,7 @@ Por eso, la rama inicial debe evitar ayudas explícitas como README, documentaci
 ```txt
 opencode-course/
   course-guides/
+    instructor-guide.md
     opencode-course.md
     participant-guide.md
     training-repo-plan.md
@@ -361,6 +368,8 @@ Ayúdame a configurar este proyecto para poder echarlo a andar por primera vez.
 ```
 
 ## Flujo de ejercicios
+
+Los ejemplos siguientes describen capacidades que el laboratorio debe soportar. No reemplazan el flujo canónico de clase definido en `course-guides/instructor-guide.md`.
 
 ### Ejercicio 1 — Exploración inicial
 

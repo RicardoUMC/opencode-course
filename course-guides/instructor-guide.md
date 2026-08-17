@@ -2,6 +2,12 @@
 
 Esta guía es un guion de facilitación. Úsala para conducir el curso como 3 sesiones de 2 horas o como un workshop intensivo de 5 a 6 horas.
 
+## Cómo usar estas guías
+
+`instructor-guide.md` es la fuente de verdad para la facilitación en vivo: orden de actividades, prompts, notas del instructor, resultados esperados y debriefs. Usa `opencode-course.md` como temario general, `participant-guide.md` como cuaderno breve para participantes y `training-repo-plan.md` como referencia técnica del laboratorio.
+
+Si encuentras una diferencia entre los documentos sobre la secuencia de clase, sigue esta guía y ajusta los demás documentos como referencias secundarias.
+
 ## Metodología del curso
 
 Cada bloque sigue el mismo ciclo:
@@ -184,6 +190,12 @@ Usar OpenCode para diagnosticar un fallo realista sin adelantar la respuesta.
 ## Framing del instructor
 
 Pide al grupo observar la UI y probar acciones básicas. Si la acción `Mark done` falla, no reveles de inmediato la causa. Haz que pidan evidencia en frontend, backend y contrato compartido.
+
+Comportamiento esperado de estados durante el laboratorio:
+
+- las tareas nuevas se crean con estado `todo` por defecto;
+- los datos semilla incluyen tareas `in_progress` y `done` para que funcionen filtros, resumen y observación del dominio;
+- que `Mark done` falle con `404` es intencional y sirve para diagnosticar el contrato entre frontend, contrato compartido y backend.
 
 Nota para instructor: el desalineamiento intencional es `PATCH /tasks/{id}/status` en frontend/contrato compartido contra `PATCH /tasks/status?id=...` en backend.
 

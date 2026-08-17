@@ -2,6 +2,12 @@
 
 Esta guía te ayuda a usar OpenCode durante el curso sin perder el control técnico del repositorio. La idea no es “pedirle código a la IA”, sino aprender a dirigir un agente con intención, contexto y verificación.
 
+## Cómo usar esta guía
+
+Usa este documento como cuaderno de trabajo: checklist, comandos y prompts para ejecutar durante la clase. No reemplaza las indicaciones del instructor ni intenta anticipar todas las respuestas del laboratorio.
+
+Para entender el temario completo puedes revisar `opencode-course.md`. El flujo vivo de la clase lo conduce el instructor desde `instructor-guide.md`.
+
 ## Audiencia
 
 Este material es para desarrolladores que:
@@ -258,7 +264,7 @@ npm run build
 
 - El frontend usa CSS simple del proyecto, no Tailwind.
 - Esto evita instalar herramientas extra durante el entrenamiento.
-- Si una acción de estado falla, trátala como ejercicio de diagnóstico de contrato frontend/backend.
+- Si una acción de estado falla, trátala como parte del ejercicio de diagnóstico: pide evidencia antes de proponer cambios.
 
 ## Notas de seguridad sobre MCPs y plugins
 
