@@ -54,6 +54,8 @@ La aplicación permite:
 - consultar resumen por estado;
 - consultar tareas vencidas.
 
+Nota de alcance: en la rama inicial, el formulario crea tareas nuevas con estado `todo` por defecto. Los estados `in_progress` y `done` existen en los datos iniciales para alimentar filtros, resumen y diagnóstico, pero no se modela todavía el flujo completo para establecer cualquier estado inicial desde la UI.
+
 Este dominio es útil porque es fácil de entender, pero permite introducir errores lógicos, validaciones faltantes, estados inconsistentes y problemas simples de integración frontend/backend.
 
 ## Estado verificado actual
@@ -71,6 +73,8 @@ El proyecto práctico ya corre localmente.
 | Estilos | Usa CSS simple del proyecto; Tailwind se dejó fuera a propósito para reducir setup. |
 
 Nota para instructores: se mantiene un problema educativo de contrato. El frontend/contrato compartido usa `PATCH /tasks/{id}/status`, pero el backend expone `PATCH /tasks/status?id=...`. La acción de marcar una tarea como completada debe fallar o abrir una conversación sobre deriva de contrato frontend/backend.
+
+Nota de alcance de estados: las tareas nuevas nacen como `todo`; `in_progress` aparece en datos semilla para representar un estado existente del dominio y permitir ejercicios de filtro/resumen. No es necesario resolver quién lo asigna durante esta primera práctica.
 
 ## Backend Go
 

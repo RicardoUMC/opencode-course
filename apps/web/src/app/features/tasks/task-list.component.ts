@@ -44,7 +44,8 @@ import { TaskSummaryComponent } from './task-summary.component';
           <div><dt>Status</dt><dd><span class="status-pill" [ngClass]="task.status">{{ task.status }}</span></dd></div>
           <div><dt>Due date</dt><dd>{{ task.dueDate }}</dd></div>
         </dl>
-        <button type="button" (click)="markDone(task)">Mark done</button>
+        <button *ngIf="task.status !== 'done'" type="button" (click)="markDone(task)">Mark done</button>
+        <span *ngIf="task.status === 'done'" class="completed-action">Completed</span>
       </article>
     </section>
   `,
@@ -168,17 +169,27 @@ import { TaskSummaryComponent } from './task-summary.component';
     .task-card button:hover { transform: translateY(-1px); background: #2563eb; box-shadow: 0 12px 24px rgba(37, 99, 235, 0.24); }
     .task-card button:focus-visible { outline: 4px solid rgba(37, 99, 235, 0.2); outline-offset: 3px; }
 
+    .completed-action {
+      display: inline-flex;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 11px 16px;
+      background: #ecfdf5;
+      color: #047857;
+      font-weight: 900;
+    }
+
     @media (max-width: 900px) {
       .task-card { grid-template-columns: 1fr; align-items: stretch; }
       .task-meta { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .task-card button { justify-self: start; }
+      .task-card button, .completed-action { justify-self: start; }
     }
 
     @media (max-width: 560px) {
       .toolbar { align-items: stretch; flex-direction: column; }
       .select-wrap { min-width: 0; }
       .task-meta { grid-template-columns: 1fr; }
-      .task-card button { width: 100%; }
+      .task-card button, .completed-action { width: 100%; }
     }
   `],
 })
