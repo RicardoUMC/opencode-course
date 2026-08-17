@@ -1,116 +1,116 @@
-# Local Development
+# Desarrollo local
 
-Use two terminals: one for the Go API and one for the Angular web app.
+Usa dos terminales: una para la API en Go y otra para la aplicación web en Angular.
 
-## Prerequisites
+## Requisitos previos
 
-| Tool | Used for |
+| Herramienta | Uso |
 |------|----------|
-| Go | Running and testing the API. |
-| Node.js | Installing and running the Angular app. |
-| npm | Web dependency installation and scripts. |
+| Go | Ejecutar y probar la API. |
+| Node.js | Instalar y ejecutar la aplicación Angular. |
+| npm | Instalar dependencias web y ejecutar scripts. |
 
-## First-time setup
+## Configuración inicial
 
-From the repository root:
+Desde la raíz del repositorio:
 
 ```bash
 cd apps/web
 npm install
 ```
 
-No database, container, or external service is required. The API stores tasks in memory.
+No se requiere base de datos, contenedor ni servicio externo. La API almacena tareas en memoria.
 
-## Run the API
+## Ejecutar la API
 
 ```bash
 cd apps/api
 go run ./cmd/server
 ```
 
-Expected output:
+Salida esperada:
 
 ```text
 Team Tasks API listening on http://localhost:8080
 ```
 
-Optional health check:
+Verificación de salud opcional:
 
 ```bash
 curl http://localhost:8080/health
 ```
 
-Expected response:
+Respuesta esperada:
 
 ```json
 {"status":"ok"}
 ```
 
-## Run the web app
+## Ejecutar la aplicación web
 
-In a second terminal:
+En una segunda terminal:
 
 ```bash
 cd apps/web
 npm start -- --host 127.0.0.1 --port 4200
 ```
 
-Open:
+Abre:
 
 ```text
 http://127.0.0.1:4200
 ```
 
-## Useful verification commands
+## Comandos útiles de verificación
 
 ```bash
 cd apps/api && go test ./...
 cd apps/web && npm run build
 ```
 
-## Troubleshooting
+## Solución de problemas
 
-### Blank page
+### Página en blanco
 
-- Confirm the web dev server is still running.
-- Check the browser console for Angular or network errors.
-- Run `cd apps/web && npm run build` to catch compile-time issues.
-- Confirm you opened `http://127.0.0.1:4200`, not the API URL.
+- Confirma que el servidor de desarrollo web siga ejecutándose.
+- Revisa la consola del navegador para detectar errores de Angular o de red.
+- Ejecuta `cd apps/web && npm run build` para detectar problemas de compilación.
+- Confirma que abriste `http://127.0.0.1:4200`, no la URL de la API.
 
-### API data does not load
+### Los datos de la API no cargan
 
-- Confirm the API is running on `http://localhost:8080`.
-- Visit `http://localhost:8080/health` and expect `{"status":"ok"}`.
-- Check the browser Network tab for failed requests.
-- If behavior crosses the API boundary, inspect `apps/api`, `apps/web`, and `packages/shared` before editing.
+- Confirma que la API se esté ejecutando en `http://localhost:8080`.
+- Visita `http://localhost:8080/health` y espera `{"status":"ok"}`.
+- Revisa la pestaña Network del navegador para detectar solicitudes fallidas.
+- Si el comportamiento cruza el límite de la API, revisa `apps/api`, `apps/web` y `packages/shared` antes de editar.
 
-### CORS errors
+### Errores de CORS
 
-- The API allows development origins beginning with `http://localhost:` and `http://127.0.0.1:`.
-- Start the web app with `--host 127.0.0.1 --port 4200` to match the expected local setup.
-- Restart the API after changing CORS-related code.
+- La API permite orígenes de desarrollo que empiezan con `http://localhost:` y `http://127.0.0.1:`.
+- Inicia la aplicación web con `--host 127.0.0.1 --port 4200` para coincidir con la configuración local esperada.
+- Reinicia la API después de cambiar código relacionado con CORS.
 
-### Port already in use
+### Puerto ya en uso
 
-- API default: `8080`.
-- Web default in this repo's commands: `4200`.
-- Stop the process using the port, or choose a different web port and open the matching URL.
-- If changing the API port, update frontend API configuration deliberately.
+- Valor por defecto de la API: `8080`.
+- Valor por defecto de la web en los comandos de este repositorio: `4200`.
+- Detén el proceso que usa el puerto, o elige otro puerto web y abre la URL correspondiente.
+- Si cambias el puerto de la API, actualiza la configuración de la API en frontend de forma deliberada.
 
-### `npm install` fails
+### `npm install` falla
 
-- Verify Node.js and npm are installed and available on `PATH`.
-- Run the command from `apps/web`, not the repository root.
-- If dependencies are already installed but broken, remove `apps/web/node_modules` and run `npm install` again.
+- Verifica que Node.js y npm estén instalados y disponibles en `PATH`.
+- Ejecuta el comando desde `apps/web`, no desde la raíz del repositorio.
+- Si las dependencias ya están instaladas pero fallan, elimina `apps/web/node_modules` y ejecuta `npm install` de nuevo.
 
-### `npm run build` fails
+### `npm run build` falla
 
-- Read the first TypeScript or Angular error in the output; later errors may be cascading failures.
-- Confirm the command is run from `apps/web`.
-- Check recent edits to components, models, and the API service.
+- Lee el primer error de TypeScript o Angular en la salida; los errores posteriores pueden ser fallos en cascada.
+- Confirma que el comando se ejecute desde `apps/web`.
+- Revisa ediciones recientes en componentes, modelos y el servicio de API.
 
-### Go server fails to start
+### El servidor Go no inicia
 
-- Confirm the command is run from `apps/api`.
-- Run `go test ./...` to catch compile errors.
-- If port `8080` is already in use, stop the existing process before restarting the API.
+- Confirma que el comando se ejecute desde `apps/api`.
+- Ejecuta `go test ./...` para detectar errores de compilación.
+- Si el puerto `8080` ya está en uso, detén el proceso existente antes de reiniciar la API.

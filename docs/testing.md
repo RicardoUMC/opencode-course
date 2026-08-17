@@ -1,19 +1,19 @@
-# Testing
+# Pruebas
 
-This repo currently relies on build checks, Go package compilation, and manual verification. There are no dedicated test files yet.
+Este repositorio actualmente depende de verificaciones de build, compilación de paquetes Go y verificación manual. Todavía no hay archivos de prueba dedicados.
 
-## Current testing state
+## Estado actual de pruebas
 
-| Area | State |
+| Área | Estado |
 |------|-------|
-| API tests | `go test ./...` passes and currently reports no test files. |
-| Web tests | No dedicated test script is configured. |
-| Web build | `npm run build` is the primary frontend verification command. |
-| Manual checks | Required for end-to-end behavior across the API and web app. |
+| Pruebas de API | `go test ./...` pasa y actualmente informa que no hay archivos de prueba. |
+| Pruebas web | No hay un script de pruebas dedicado configurado. |
+| Build web | `npm run build` es el comando principal de verificación frontend. |
+| Verificaciones manuales | Requeridas para el comportamiento end-to-end entre la API y la aplicación web. |
 
-## Commands that should pass
+## Comandos que deberían pasar
 
-From the repository root:
+Desde la raíz del repositorio:
 
 ```bash
 cd apps/api && go test ./...
@@ -23,7 +23,7 @@ cd apps/api && go test ./...
 cd apps/web && npm run build
 ```
 
-For manual verification, also run both apps:
+Para la verificación manual, ejecuta también ambas aplicaciones:
 
 ```bash
 cd apps/api && go run ./cmd/server
@@ -33,28 +33,28 @@ cd apps/api && go run ./cmd/server
 cd apps/web && npm start -- --host 127.0.0.1 --port 4200
 ```
 
-## Manual verification checklist
+## Checklist de verificación manual
 
-With the API and web app running:
+Con la API y la aplicación web en ejecución:
 
-- [ ] The task board loads seeded tasks.
-- [ ] Summary counts show tasks across `todo`, `in_progress`, and `done`.
-- [ ] Filters can show different status groups.
-- [ ] Creating a task adds a new `todo` task.
-- [ ] API-only checks, such as overdue behavior, are verified with direct HTTP requests when they are not exposed in the UI.
-- [ ] Browser console and Network tab are checked for failed requests.
-- [ ] For any API-boundary change, backend routes, frontend API calls, frontend models, and `packages/shared/task-contract.json` are compared.
+- [ ] El tablero de tareas carga las tareas iniciales.
+- [ ] Los conteos del resumen muestran tareas en `todo`, `in_progress` y `done`.
+- [ ] Los filtros pueden mostrar distintos grupos de estado.
+- [ ] Crear una tarea agrega una nueva tarea `todo`.
+- [ ] Las verificaciones solo de API, como el comportamiento de vencidas, se validan con solicitudes HTTP directas cuando no están expuestas en la UI.
+- [ ] La consola del navegador y la pestaña Network se revisan para detectar solicitudes fallidas.
+- [ ] Para cualquier cambio en el límite de la API, se comparan rutas backend, llamadas de API frontend, modelos frontend y `packages/shared/task-contract.json`.
 
-## Suggested first tests to add later
+## Primeras pruebas sugeridas para agregar después
 
-| Area | Suggested test | Why it helps |
+| Área | Prueba sugerida | Por qué ayuda |
 |------|----------------|--------------|
-| API service | Creating a task defaults status to `todo`. | Protects a core business rule. |
-| API service | Summary counts `todo`, `in_progress`, and `done` correctly. | Covers seeded workflow states. |
-| API service | Overdue excludes `done` tasks. | Captures date/status interaction. |
-| API handler | Invalid JSON returns `400`. | Protects request validation behavior. |
-| API handler | Missing task status update returns `404`. | Documents not-found behavior. |
-| Web API service | Request URLs match the shared contract and backend routes. | Catches contract drift early. |
-| Web components | Creating a task refreshes list and summary state. | Covers the most important user flow. |
+| Servicio de API | Crear una tarea asigna estado `todo` por defecto. | Protege una regla de negocio central. |
+| Servicio de API | El resumen cuenta correctamente `todo`, `in_progress` y `done`. | Cubre los estados iniciales del flujo de trabajo. |
+| Servicio de API | Las vencidas excluyen tareas `done`. | Captura la interacción entre fecha y estado. |
+| Handler de API | JSON inválido devuelve `400`. | Protege el comportamiento de validación de solicitudes. |
+| Handler de API | Actualizar estado de tarea inexistente devuelve `404`. | Documenta el comportamiento not-found. |
+| Servicio de API web | Las URLs de solicitud coinciden con el contrato compartido y las rutas backend. | Detecta temprano desvíos de contrato. |
+| Componentes web | Crear una tarea refresca la lista y el estado del resumen. | Cubre el flujo de usuario más importante. |
 
-Keep future tests focused. Add the smallest test that protects the behavior being changed.
+Mantén enfocadas las pruebas futuras. Agrega la prueba más pequeña que proteja el comportamiento que se cambia.

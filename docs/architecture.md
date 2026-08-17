@@ -1,73 +1,73 @@
-# Architecture
+# Arquitectura
 
-Team Tasks is a compact full-stack training app. The architecture is intentionally simple so contributors can focus on reading code, checking contracts, and making small verified changes.
+Team Tasks es una aplicación full-stack compacta de entrenamiento. La arquitectura es intencionalmente simple para que quienes contribuyan puedan enfocarse en leer código, revisar contratos y hacer cambios pequeños y verificados.
 
-## System overview
+## Vista general del sistema
 
-| Layer | Location | Responsibility |
+| Capa | Ubicación | Responsabilidad |
 |-------|----------|----------------|
-| Web UI | `apps/web` | Renders the task board, form, filters, and summary. |
-| API | `apps/api` | Exposes HTTP endpoints for task operations. |
-| Shared reference | `packages/shared` | Documents expected task fields, endpoints, and example payloads. |
-| Storage | `apps/api/internal/task/repository.go` | Keeps seeded tasks in memory for local training use. |
+| UI web | `apps/web` | Renderiza el tablero de tareas, formulario, filtros y resumen. |
+| API | `apps/api` | Expone endpoints HTTP para operaciones de tareas. |
+| Referencia compartida | `packages/shared` | Documenta campos esperados de tareas, endpoints y payloads de ejemplo. |
+| Almacenamiento | `apps/api/internal/task/repository.go` | Mantiene tareas iniciales en memoria para entrenamiento local. |
 
-## Backend architecture
+## Arquitectura backend
 
-The Go API uses a small layered structure under `apps/api`:
+La API en Go usa una estructura pequeña por capas dentro de `apps/api`:
 
-| File | Role |
+| Archivo | Rol |
 |------|------|
-| `cmd/server/main.go` | Builds dependencies, registers routes, enables development CORS, and starts the server on port `8080`. |
-| `internal/task/handler.go` | Handles HTTP requests, decodes request bodies, reads query parameters, and writes JSON responses. |
-| `internal/task/service.go` | Contains task use cases such as create, status change, summary, and overdue filtering. |
-| `internal/task/repository.go` | Defines the repository interface and in-memory implementation with seeded data. |
-| `internal/task/model.go` | Defines task, status, request, and summary shapes. |
+| `cmd/server/main.go` | Construye dependencias, registra rutas, habilita CORS de desarrollo e inicia el servidor en el puerto `8080`. |
+| `internal/task/handler.go` | Maneja solicitudes HTTP, decodifica cuerpos de solicitud, lee parámetros de consulta y escribe respuestas JSON. |
+| `internal/task/service.go` | Contiene casos de uso de tareas como creación, cambio de estado, resumen y filtrado de vencidas. |
+| `internal/task/repository.go` | Define la interfaz del repositorio y la implementación en memoria con datos iniciales. |
+| `internal/task/model.go` | Define las estructuras de tareas, estados, solicitudes y resúmenes. |
 
-The API uses only in-memory state. Restarting the server resets tasks to the seeded data.
+La API usa solo estado en memoria. Al reiniciar el servidor, las tareas vuelven a los datos iniciales.
 
-## Frontend architecture
+## Arquitectura frontend
 
-The Angular app lives in `apps/web` and is organized around task features:
+La aplicación Angular está en `apps/web` y se organiza alrededor de funcionalidades de tareas:
 
-| Path | Role |
+| Ruta | Rol |
 |------|------|
-| `src/app/app.component.ts` | Application shell and hero layout. |
-| `src/app/app.routes.ts` | Routes the app to the task feature screen. |
-| `src/app/core/api/task-api.service.ts` | Central API client for task HTTP calls. |
-| `src/app/features/tasks/task.model.ts` | Frontend task and summary types. |
-| `src/app/features/tasks/*component.ts` | Task list, form, and summary UI components. |
+| `src/app/app.component.ts` | Contenedor de la aplicación y layout principal. |
+| `src/app/app.routes.ts` | Enruta la aplicación a la pantalla de tareas. |
+| `src/app/core/api/task-api.service.ts` | Cliente central de API para llamadas HTTP de tareas. |
+| `src/app/features/tasks/task.model.ts` | Tipos frontend de tareas y resumen. |
+| `src/app/features/tasks/*component.ts` | Componentes de UI para lista, formulario y resumen de tareas. |
 
-The web app calls the API at `http://localhost:8080`. Run the API and web app in separate terminals during manual verification.
+La aplicación web llama a la API en `http://localhost:8080`. Ejecuta la API y la aplicación web en terminales separadas durante la verificación manual.
 
-## Shared package purpose
+## Propósito del paquete compartido
 
-`packages/shared` is a lightweight reference area, not a compiled package in the current setup.
+`packages/shared` es un área ligera de referencia, no un paquete compilado en la configuración actual.
 
-| File | Purpose |
+| Archivo | Propósito |
 |------|---------|
-| `task-contract.json` | Documents the intended task fields and endpoint contract. |
-| `examples/task.json` | Provides a sample task payload. |
+| `task-contract.json` | Documenta los campos previstos de tareas y el contrato de endpoints. |
+| `examples/task.json` | Proporciona un payload de tarea de ejemplo. |
 
-When changing behavior at an API boundary, inspect the backend handler, frontend API service, frontend models, and shared contract together. Contract differences should be deliberate, not accidental.
+Cuando cambies comportamiento en un límite de API, revisa juntos el handler backend, el servicio de API frontend, los modelos frontend y el contrato compartido. Las diferencias de contrato deben ser deliberadas, no accidentales.
 
-## Data flow
+## Flujo de datos
 
-1. The user interacts with the Angular task board.
-2. Angular components call `TaskApiService`.
-3. `TaskApiService` sends HTTP requests to the Go API.
-4. Go handlers decode requests and call the task service.
-5. The service reads or updates the in-memory repository.
-6. The API returns JSON to the web app.
-7. The UI refreshes task lists and summary data.
+1. La persona usuaria interactúa con el tablero de tareas en Angular.
+2. Los componentes Angular llaman a `TaskApiService`.
+3. `TaskApiService` envía solicitudes HTTP a la API en Go.
+4. Los handlers de Go decodifican solicitudes y llaman al servicio de tareas.
+5. El servicio lee o actualiza el repositorio en memoria.
+6. La API devuelve JSON a la aplicación web.
+7. La UI actualiza listas de tareas y datos de resumen.
 
-## Task status lifecycle
+## Ciclo de vida del estado de una tarea
 
-Task status is intentionally limited to three values:
+El estado de una tarea está limitado intencionalmente a tres valores:
 
-| Status | Meaning |
+| Estado | Significado |
 |--------|---------|
-| `todo` | Work has not started. New tasks default to this status. |
-| `in_progress` | Work is active. Seeded data includes this state for filters and summary counts. |
-| `done` | Work is complete. Done tasks are excluded from overdue results. |
+| `todo` | El trabajo no comenzó. Las tareas nuevas usan este estado por defecto. |
+| `in_progress` | El trabajo está activo. Los datos iniciales incluyen este estado para filtros y conteos de resumen. |
+| `done` | El trabajo está completo. Las tareas finalizadas se excluyen de los resultados vencidos. |
 
-Do not introduce a broader workflow unless the training task explicitly asks for it.
+No introduzcas un flujo de trabajo más amplio salvo que la tarea de entrenamiento lo pida explícitamente.

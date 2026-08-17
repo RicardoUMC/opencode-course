@@ -1,85 +1,85 @@
 # Team Tasks
 
-Team Tasks is a small training monorepo with a Go API, an Angular web app, and shared contract examples. This branch demonstrates how explicit repository context helps humans and coding agents work with the same project boundaries.
+Team Tasks es un monorepo pequeño de entrenamiento con una API en Go, una aplicación web en Angular y ejemplos de contrato compartidos. Esta rama muestra cómo el contexto explícito del repositorio ayuda a humanos y agentes de código a trabajar con los mismos límites del proyecto.
 
-## Repository structure
+## Estructura del repositorio
 
-| Path | Purpose |
+| Ruta | Propósito |
 |------|---------|
-| `apps/api` | Go HTTP API for tasks, summaries, overdue tasks, and status changes. |
-| `apps/web` | Angular single-page app for viewing, creating, filtering, and updating tasks. |
-| `packages/shared` | Shared contract and example payloads used as reference material. |
-| `docs` | Project documentation for architecture, local development, and testing. |
-| `course-guides` | Course-facing material. Do not treat it as general project documentation. |
+| `apps/api` | API HTTP en Go para tareas, resúmenes, tareas vencidas y cambios de estado. |
+| `apps/web` | Aplicación Angular de una sola página para ver, crear, filtrar y actualizar tareas. |
+| `packages/shared` | Contrato compartido y payloads de ejemplo usados como material de referencia. |
+| `docs` | Documentación del proyecto sobre arquitectura, desarrollo local y pruebas. |
+| `course-guides` | Material del curso. No lo trates como documentación general del proyecto. |
 
-## Prerequisites
+## Requisitos previos
 
-- Go installed and available on `PATH`.
-- Node.js and npm installed.
-- A terminal capable of running separate API and web processes.
+- Go instalado y disponible en `PATH`.
+- Node.js y npm instalados.
+- Una terminal capaz de ejecutar procesos separados para la API y la web.
 
-## Local setup
+## Configuración local
 
-From the repository root:
+Desde la raíz del repositorio:
 
 ```bash
 cd apps/web
 npm install
 ```
 
-The API has no external services or database setup. It uses an in-memory repository with seeded tasks.
+La API no requiere servicios externos ni configuración de base de datos. Usa un repositorio en memoria con tareas iniciales.
 
-## Run the API
+## Ejecutar la API
 
 ```bash
 cd apps/api
 go run ./cmd/server
 ```
 
-Expected output:
+Salida esperada:
 
 ```text
 Team Tasks API listening on http://localhost:8080
 ```
 
-Health check:
+Verificación de salud:
 
 ```bash
 curl http://localhost:8080/health
 ```
 
-## Run the web app
+## Ejecutar la aplicación web
 
-In a second terminal:
+En una segunda terminal:
 
 ```bash
 cd apps/web
 npm start -- --host 127.0.0.1 --port 4200
 ```
 
-Open `http://127.0.0.1:4200`.
+Abre `http://127.0.0.1:4200`.
 
-## Verification commands
+## Comandos de verificación
 
-| Area | Command |
+| Área | Comando |
 |------|---------|
-| API tests | `cd apps/api && go test ./...` |
-| API run | `cd apps/api && go run ./cmd/server` |
-| Web install | `cd apps/web && npm install` |
-| Web build | `cd apps/web && npm run build` |
-| Web run | `cd apps/web && npm start -- --host 127.0.0.1 --port 4200` |
+| Pruebas de API | `cd apps/api && go test ./...` |
+| Ejecutar API | `cd apps/api && go run ./cmd/server` |
+| Instalar web | `cd apps/web && npm install` |
+| Compilar web | `cd apps/web && npm run build` |
+| Ejecutar web | `cd apps/web && npm start -- --host 127.0.0.1 --port 4200` |
 
-## Known training scope and caveats
+## Alcance de entrenamiento y advertencias conocidas
 
-- Data is in memory and resets when the API restarts.
-- New tasks are created with `todo` status.
-- Seeded data includes `todo`, `in_progress`, and `done` tasks so filters and summary counts have meaningful starting data.
-- This repo is intentionally small. Prefer focused changes over broad framework or architecture rewrites.
-- Contract consistency across `apps/api`, `apps/web`, and `packages/shared` is part of the training surface. Inspect all three before changing API behavior.
+- Los datos están en memoria y se reinician cuando se reinicia la API.
+- Las tareas nuevas se crean con estado `todo`.
+- Los datos iniciales incluyen tareas `todo`, `in_progress` y `done` para que los filtros y los conteos del resumen tengan datos iniciales útiles.
+- Este repositorio es intencionalmente pequeño. Prefiere cambios enfocados antes que reescrituras amplias de framework o arquitectura.
+- La consistencia del contrato entre `apps/api`, `apps/web` y `packages/shared` es parte del entrenamiento. Revisa los tres antes de cambiar el comportamiento de la API.
 
-## More documentation
+## Más documentación
 
-- [Architecture](docs/architecture.md)
-- [Local development](docs/local-development.md)
-- [Testing](docs/testing.md)
-- [Agent instructions](AGENTS.md)
+- [Arquitectura](docs/architecture.md)
+- [Desarrollo local](docs/local-development.md)
+- [Pruebas](docs/testing.md)
+- [Instrucciones para agentes](AGENTS.md)
