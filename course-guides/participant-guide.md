@@ -19,14 +19,21 @@ Este material es para desarrolladores que:
 - [ ] Tengo VS Code o un editor equivalente.
 - [ ] Tengo Go disponible si quiero ejecutar el backend.
 - [ ] Tengo Node.js disponible si quiero inspeccionar el frontend.
+- [ ] Revisé la instalación oficial de OpenCode en `https://opencode.ai/`.
 - [ ] Tengo credenciales o configuración para el proveedor/modelo que usará OpenCode.
 - [ ] Sé revisar un `diff` antes de aceptar cambios.
 
 ## Instalación y primer uso
 
+Sitio oficial y documentación:
+
+```txt
+https://opencode.ai/
+```
+
 Checklist recomendado:
 
-- [ ] Instalar OpenCode según las instrucciones del equipo.
+- [ ] Instalar OpenCode siguiendo la documentación oficial o las instrucciones del equipo.
 - [ ] Abrir una terminal en la raíz del repositorio.
 - [ ] Ejecutar OpenCode desde el repositorio, no desde una carpeta cualquiera.
 - [ ] Confirmar qué modelo/proveedor está usando.
@@ -40,25 +47,47 @@ Primer prompt sugerido:
 Explora este repositorio y dime qué tipo de proyecto parece ser. No modifiques archivos todavía.
 ```
 
-## Uso en TUI y terminal de VS Code
+## Modos de uso de OpenCode
 
 ### TUI
 
 Usa la TUI para trabajo interactivo y revisión paso a paso:
+
+```bash
+opencode
+opencode .
+```
 
 - mantén el repositorio como directorio actual;
 - pide cambios pequeños y verificables;
 - revisa cada archivo antes de aceptar;
 - corta la tarea si el agente empieza a ampliar el alcance.
 
-### Terminal integrada de VS Code
+### VS Code o IDE compatible
 
-Usa la terminal de VS Code cuando quieras ver código, diffs y ejecución en el mismo entorno:
+Usa la terminal integrada de VS Code o de un IDE compatible cuando quieras ver código, diffs y ejecución en el mismo entorno:
 
 - abre la terminal en la raíz del proyecto;
-- ejecuta OpenCode ahí para que el contexto sea correcto;
+- ejecuta `opencode` ahí para que el contexto sea correcto;
+- usa el editor para revisar archivos, diffs y Source Control mientras OpenCode corre en la terminal integrada;
+- si tu entorno tiene integración o extensión de OpenCode, úsala como apoyo visual, no como requisito del curso;
 - mantén visible el panel de Source Control;
 - revisa cambios con el diff del editor antes de continuar.
+
+### Web UI
+
+Puedes abrir la interfaz web con:
+
+```bash
+opencode web
+```
+
+Opcionalmente, puedes elegir puerto y adjuntar una TUI al servidor web:
+
+```bash
+opencode web --port 4096
+opencode attach http://localhost:4096
+```
 
 ## Patrones de prompting seguro
 
@@ -88,13 +117,95 @@ Mejora todo lo que veas.
 
 ## Flujo de ejercicios
 
-1. **Explorar**: entender estructura, lenguajes y puntos de entrada.
-2. **Levantar**: identificar comandos para backend y frontend.
-3. **Diagnosticar**: encontrar problemas pequeños con evidencia.
-4. **Corregir**: pedir cambios quirúrgicos, no refactors grandes.
-5. **Verificar**: ejecutar comandos y revisar resultados.
-6. **Documentar**: capturar lo aprendido para futuros agentes y personas.
-7. **Comparar**: repetir con más contexto y observar si mejora la calidad del agente.
+### 1. Confirmar contexto
+
+```txt
+Confirma en qué carpeta estoy trabajando y dime qué archivos ves en la raíz.
+No modifiques archivos.
+```
+
+Resultado esperado: OpenCode reconoce el repositorio correcto antes de cualquier cambio.
+
+### 2. Explorar sin modificar
+
+```txt
+Explora este proyecto y explícame qué parece hacer.
+No modifiques archivos todavía.
+Dime qué tecnologías usa, cómo está organizado y qué dudas tienes.
+```
+
+Resultado esperado: identificas estructura, tecnologías y puntos de entrada.
+
+### 3. Levantar el proyecto
+
+```txt
+Ayúdame a levantar este proyecto localmente por primera vez.
+Primero identifica los comandos necesarios.
+No modifiques archivos todavía.
+```
+
+Luego:
+
+```txt
+Ahora ayúdame a ejecutar el backend y frontend.
+Si falla algo, explícame la causa probable y propón una solución mínima.
+```
+
+Resultado esperado: obtienes comandos concretos para backend y frontend.
+
+### 4. Diagnosticar con evidencia
+
+```txt
+La acción para marcar una tarea como completada falla.
+Diagnostica la causa revisando frontend, backend y cualquier contrato compartido.
+No modifiques archivos todavía.
+Indica la evidencia concreta con rutas de archivo.
+```
+
+Resultado esperado: entiendes el problema antes de pedir cambios. No necesitas memorizar la respuesta; necesitas pedir evidencia.
+
+### 5. Pedir plan antes de implementar
+
+```txt
+Propón un plan mínimo para corregir solo este problema de contrato.
+No modifiques archivos todavía.
+Indica qué archivo cambiarías y cómo verificaríamos el resultado.
+```
+
+Resultado esperado: apruebas o ajustas el plan antes de tocar archivos.
+
+### 6. Corregir con alcance limitado
+
+```txt
+Implementa solo el cambio aprobado.
+Restricciones:
+- No cambies comportamiento no relacionado.
+- No hagas refactors grandes.
+- Mantén el cambio pequeño y revisable.
+- Al final explica el diff y cómo verificarlo.
+```
+
+Resultado esperado: cambio pequeño, diff revisable y verificación clara.
+
+### 7. Comparar con contexto
+
+```txt
+Explora este proyecto otra vez.
+Usa la documentación disponible y dime si ahora puedes explicar mejor cómo levantarlo, probarlo y modificarlo.
+No modifiques archivos.
+```
+
+Resultado esperado: comparas la calidad de respuesta entre una rama sin contexto y `with-agent-context`.
+
+### 8. Reflexionar sobre documentación para agentes
+
+```txt
+Revisa README.md, AGENTS.md y docs/.
+Resume qué información ayuda a una persona y qué información ayuda específicamente a un agente.
+No modifiques archivos.
+```
+
+Resultado esperado: distingues documentación humana, documentación técnica e instrucciones para agentes.
 
 ## Estado local verificado
 
