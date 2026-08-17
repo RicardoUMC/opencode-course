@@ -223,11 +223,12 @@ Ejemplo:
 
 - permite crear una tarea sin título;
 - permite fecha vencida sin advertencia;
-- permite estado inválido.
+- asigna `todo` por defecto al crear tarea, sin permitir elegir estado inicial desde el formulario.
 
 Aprendizaje esperado:
 
 - pedir al agente identificar validaciones faltantes;
+- distinguir entre comportamiento esperado y bug real;
 - limitar el cambio;
 - agregar verificación manual o test sugerido.
 
