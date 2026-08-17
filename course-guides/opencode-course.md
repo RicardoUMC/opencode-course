@@ -6,6 +6,15 @@ Que el equipo aprenda a usar OpenCode como asistente de desarrollo real: desde i
 
 El curso está diseñado alrededor de un monorepo práctico con Go y Angular.
 
+## Cómo usar estos documentos
+
+Este archivo es el temario maestro y la vista general del curso. Para ejecutar la clase en vivo, usa `course-guides/instructor-guide.md`: allí está el flujo canónico de entrega, con tiempos, prompts, notas de facilitación y debriefs.
+
+Los demás documentos cumplen roles específicos:
+
+- `participant-guide.md`: cuaderno breve de prompts y checklist para participantes.
+- `training-repo-plan.md`: plan técnico del repositorio de laboratorio, no guion de facilitación.
+
 ## Enfoque del curso
 
 La narrativa principal será:
@@ -78,10 +87,10 @@ docs/
 
 La carpeta `course-guides/` contiene el material del curso:
 
-- `opencode-course.md`: guía maestra del curso.
-- `instructor-guide.md`: guion práctico de facilitación para 3 sesiones o un workshop intensivo.
-- `participant-guide.md`: ejercicios y comandos para participantes.
-- `training-repo-plan.md`: plan técnico del repositorio de laboratorio.
+- `opencode-course.md`: temario maestro y vista general del curso.
+- `instructor-guide.md`: fuente de verdad del flujo canónico de entrega en vivo.
+- `participant-guide.md`: cuaderno breve de ejercicios, prompts y checklist para participantes.
+- `training-repo-plan.md`: plan técnico del repositorio de laboratorio; no define la secuencia de clase.
 
 La carpeta `docs/` se reserva para documentación real del proyecto durante el ejercicio de comparación con contexto para agentes.
 
